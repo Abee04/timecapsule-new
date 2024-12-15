@@ -8,7 +8,7 @@ const Navbar = ({ user }) => {
       <Link to="/" style={styles.link}><h1 style={styles.logo}>ToTheFuture</h1></Link>
       <div>
         <Link to="/" style={styles.link}>Home</Link>
-        <Link to="/message" style={styles.link}>Write</Link>
+        <Link to="/composemail" style={styles.link}>Write</Link>
         {user ? (
           <button style={styles.logout} onClick={logout}>Logout</button>
         ) : (

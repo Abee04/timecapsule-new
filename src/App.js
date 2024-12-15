@@ -6,6 +6,7 @@ import Home from './components/Home';
 import Write from './components/Write';
 import Login from './components/Login';
 import Message from './components/Message';
+import ComposeMail from './components/ComposeMail';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/write" element={<Write />} />
         <Route path="/login" element={<Login />} />
         <Route path="/message" element={<Message />} />
+        <Route path="/composemail" element={<ComposeMail />} />
       </Routes>
     </>
   );
