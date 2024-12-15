@@ -9,9 +9,7 @@ const Home = ({ user }) => {
         <h1 style={styles.title}>Welcome to ToFuture</h1>
         <p style={styles.description}>
           Ready to time capsule your messages? <br />
-          Store them securely and send them into the future! <br />
-          Let your words travel through time. <br />
-          Start your journey with ToFuture today.
+          Let your words travel through time, start your journey with ToFuture today! <br />
         </p>
         {user ? (
           <h2 style={styles.user}>Hello, {user.displayName}!</h2>

@@ -1,23 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { signInWithGoogle } from '../firebase';
 import { useNavigate } from 'react-router-dom';
-import timeImage from '../assets/time1.jpg'; // Path to your image
+import timeImage from '../assets/time1.jpg';
 
 const Login = () => {
+  const [isSigningIn, setIsSigningIn] = useState(false); // Track signing-in status
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    await signInWithGoogle();
-    navigate('/');
+    if (isSigningIn) return; // Prevent multiple clicks
+    setIsSigningIn(true);
+    try {
+      await signInWithGoogle();
+      navigate('/');
+    } catch (error) {
+      console.error("Login failed:", error);
+    } finally {
+      setIsSigningIn(false); // Re-enable the button
+    }
   };
 
   return (
     <div style={styles.pageContainer}>
       <div style={styles.overlay}>
         <h2 style={styles.heading}>Login</h2>
-        <button style={styles.button} onClick={handleLogin}>
-          Login with Google
+        <button
+          style={{
+            ...styles.googleButton,
+            cursor: isSigningIn ? 'not-allowed' : 'pointer',
+            opacity: isSigningIn ? 0.6 : 1, // Visual feedback for disabled button
+          }}
+          onClick={handleLogin}
+          disabled={isSigningIn}
+        >
+          <img
+            src="https://developers.google.com/identity/images/g-logo.png"
+            alt="Google logo"
+            style={styles.googleLogo}
+          />
+          <span style={styles.googleText}>Sign in with Google</span>
         </button>
+        <p style={styles.toFutureMeText}>Your future self will thank you!</p>      
       </div>
     </div>
   );
@@ -56,15 +79,34 @@ const styles = {
     color: '#fff',
     marginBottom: '1.5rem',
   },
-  button: {
-    padding: '0.75rem 1.5rem',
-    fontSize: '1rem',
-    cursor: 'pointer',
-    background: '#FF6F3C',
-    color: '#fff',
-    border: 'none',
+  googleButton: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: '#fff',
+    color: '#000',
+    border: '1px solid #ddd',
     borderRadius: '5px',
+    padding: '0.5rem 1rem',
+    cursor: 'pointer',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+    transition: 'background 0.3s',
   },
+  googleLogo: {
+    width: '20px',
+    height: '20px',
+    marginRight: '10px',
+  },
+  googleText: {
+    fontSize: '1rem',
+    fontWeight: 'bold',
+  },
+  toFutureMeText: {
+    fontSize: '1rem',
+    color: '#fff',
+    marginTop: '1rem',
+    fontStyle: 'italic',
+  }
 };
 
 export default Login;
