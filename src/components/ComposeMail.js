@@ -96,7 +96,7 @@ const ComposeMail = () => {
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.heading}>Your Future Message</h2>
+      <h2 style={styles.heading}>Your Future mail</h2>
       <form onSubmit={handleSubmit} style={styles.form}>
         {/* Recipient Email */}
         <div style={styles.field}>
@@ -134,10 +134,8 @@ const ComposeMail = () => {
             required
           />
         </div>
-
-        {/* Message */}
+        <label style={styles.label}>Message</label>
         <div style={styles.editorContainer}>
-          <label style={styles.label}>Message</label>
           <CustomToolbar />
           <ReactQuill
             value={message}
