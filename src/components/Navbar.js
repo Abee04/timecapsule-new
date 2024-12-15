@@ -5,7 +5,7 @@ import { logout } from '../firebase';
 const Navbar = ({ user }) => {
   return (
     <nav style={styles.navbar}>
-      <h1 style={styles.logo}>ToFuture</h1>
+      <Link to="/" style={styles.link}><h1 style={styles.logo}>ToTheFuture</h1></Link>
       <div>
         <Link to="/" style={styles.link}>Home</Link>
         <Link to="/message" style={styles.link}>Write</Link>

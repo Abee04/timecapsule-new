@@ -46,7 +46,7 @@ const Write = () => {
 
   return (
     <div style={styles.pageContainer}>
-      <div style={{ ...styles.background, backgroundImage: `url(${timeImage})` }}></div>
+      <div style={{ ...styles.background }}></div>
       <div style={styles.formContainer}>
         <h2 style={styles.heading}>Get Started</h2>
         <form onSubmit={handleSubmit} style={styles.form}>

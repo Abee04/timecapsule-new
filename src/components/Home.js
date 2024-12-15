@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import backgroundImage from '../assets/time1.jpg'; // Path to your image
+import backgroundImage from '../assets/Story.jpg'; // Path to your image
 
 const Home = ({ user }) => {
   return (
     <div style={styles.home}>
       <div style={styles.overlay}>
-        <h1 style={styles.title}>Welcome to ToFuture</h1>
+        <h1 style={styles.title}>Welcome to ToTheFuture</h1>
         <p style={styles.description}>
           Ready to time capsule your messages? <br />
           Let your words travel through time, start your journey with ToFuture today! <br />
