@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import backgroundImage from '../assets/Story.jpg'; 
+import backgroundImage from "../assets/story.jpeg"; // Import the image
 
 // Custom Toolbar for Quill Editor
 const CustomToolbar = () => (
@@ -75,197 +75,191 @@ const ComposeMail = () => {
   };
 
   return (
-    <div style={styles.container}>
-      {isEmailScheduled ? (
-        // If the email is successfully scheduled, show a confirmation message
-        <div style={styles.confirmation}>
-          <h2>Your email has been scheduled!</h2>
-          <p>
-            Your email will be sent to <strong>{recipientEmail}</strong> at{" "}
-            <strong>{scheduledTime}</strong>.
-          </p>
-          <p>Thank you for using our service!</p>
-        </div>
-      ) : (
-        // If email is not yet scheduled, show the form
-        <form onSubmit={handleSubmit} style={styles.form}>
-          <h2 style={styles.heading}>Your Future Message</h2>
-
-          <div style={styles.field}>
-            <label style={styles.label}>Recipient Email</label>
-            <input
-              type="email"
-              placeholder="Enter recipient's email"
-              value={recipientEmail}
-              onChange={(e) => setRecipientEmail(e.target.value)}
-              style={styles.input}
-              required
-            />
+    <div
+      style={{
+        ...styles.pageContainer,
+        backgroundImage: `url(${backgroundImage})`, // Set background image for entire page
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div style={styles.container}>
+        {isEmailScheduled ? (
+          // If the email is successfully scheduled, show a confirmation message
+          <div style={styles.confirmation}>
+            <h2>Your email has been scheduled!</h2>
+            <p>
+              Your email will be sent to <strong>{recipientEmail}</strong> at{" "}
+              <strong>{scheduledTime}</strong>.
+            </p>
+            <p>Thank you for using our service!</p>
           </div>
+        ) : (
+          // If email is not yet scheduled, show the form
+          <form onSubmit={handleSubmit} style={styles.form}>
+            <h2 style={styles.heading}>Your Future Message</h2>
 
-          <div style={styles.field}>
-            <label style={styles.label}>Send Date</label>
-            <input
-              type="date"
-              value={sendDate}
-              onChange={(e) => setSendDate(e.target.value)}
-              style={styles.input}
-              required
-            />
-          </div>
+            <div style={styles.field}>
+              <label style={styles.label}>Recipient Email</label>
+              <input
+                type="email"
+                placeholder="Enter recipient's email"
+                value={recipientEmail}
+                onChange={(e) => setRecipientEmail(e.target.value)}
+                style={styles.input}
+                required
+              />
+            </div>
 
-          <div style={styles.field}>
-            <label style={styles.label}>Send Time</label>
-            <input
-              type="time"
-              value={sendTime}
-              onChange={(e) => setSendTime(e.target.value)}
-              style={styles.input}
-              required
-            />
-          </div>
+            <div style={styles.field}>
+              <label style={styles.label}>Send Date</label>
+              <input
+                type="date"
+                value={sendDate}
+                onChange={(e) => setSendDate(e.target.value)}
+                style={styles.input}
+                required
+              />
+            </div>
 
-          <div style={styles.editorContainer}>
-            <label style={styles.label}>Message</label>
-            <CustomToolbar />
-            <ReactQuill
-              value={message}
-              onChange={setMessage}
-              placeholder="Write your message here..."
-              style={styles.editor}
-            />
-            <button
-              type="button"
-              onClick={handleInspireMe}
-              style={styles.inspireButton}
-            >
-              Inspire Me!
+            <div style={styles.field}>
+              <label style={styles.label}>Send Time</label>
+              <input
+                type="time"
+                value={sendTime}
+                onChange={(e) => setSendTime(e.target.value)}
+                style={styles.input}
+                required
+              />
+            </div>
+
+            <div style={styles.editorContainer}>
+              <label style={styles.label}>Message</label>
+              <CustomToolbar />
+              <ReactQuill
+                value={message}
+                onChange={setMessage}
+                placeholder="Write your message here..."
+                style={styles.editor}
+              />
+              <button
+                type="button"
+                onClick={handleInspireMe}
+                style={styles.inspireButton}
+              >
+                Inspire Me!
+              </button>
+            </div>
+
+            {/* Image Upload */}
+            <div style={styles.field}>
+              <label style={styles.label}>Upload Image</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImage(e.target.files[0])}
+                style={styles.input}
+              />
+            </div>
+
+            <button type="submit" style={styles.submitButton}>
+              Schedule Email
             </button>
-          </div>
 
-          {/* Image Upload */}
-          <div style={styles.field}>
-            <label style={styles.label}>Upload Image</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => setImage(e.target.files[0])}
-              style={styles.input}
-            />
-          </div>
-
-          <button type="submit" style={styles.submitButton}>
-            Schedule Email
-          </button>
-
-          {errorMessage && <div style={styles.errorMessage}>{errorMessage}</div>}
-        </form>
-      )}
+            {errorMessage && <div style={styles.errorMessage}>{errorMessage}</div>}
+          </form>
+        )}
+      </div>
     </div>
   );
 };
 
 const styles = {
+  pageContainer: {
+    minHeight: "100vh", // Make sure the background covers the whole page
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+  },
   container: {
-    padding: '2rem',
-    maxWidth: '800px',
-    margin: 'auto',
-    textAlign: 'center',
-    fontFamily: 'Arial, sans-serif',
-    backgroundImage: `url(${backgroundImage})`,  // Apply background image to the container
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    minHeight: '100vh', // Ensure the container takes up the full viewport height
+    backgroundColor: "rgba(255, 255, 255, 0.85)", // Semi-transparent white background for form and confirmation
+    padding: "1.5rem", // Reduced padding
+    borderRadius: "8px", // Slightly round the corners of the container
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Add a subtle shadow
+    maxWidth: "600px", // Reduced max-width for the form box
+    width: "100%",
   },
   heading: {
-    fontSize: '2rem',
-    marginBottom: '1.5rem',
-    color: '#333',
-    fontWeight: 'bold',
+    fontSize: "1.8rem", // Slightly smaller heading size
+    marginBottom: "1rem", // Reduced margin
+    color: "#333",
   },
   form: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1.5rem',
-    textAlign: 'left',
-    marginTop: '1rem',
+    display: "flex",
+    flexDirection: "column",
+    gap: "1rem",
+    textAlign: "left",
   },
   field: {
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
   },
   label: {
-    marginBottom: '0.5rem',
-    fontSize: '1rem',
-    fontWeight: 'bold',
+    marginBottom: "0.5rem",
+    fontSize: "1rem",
+    fontWeight: "bold",
   },
   input: {
-    padding: '0.75rem',
-    borderRadius: '5px',
-    border: '1px solid #ccc',
-    fontSize: '1rem',
+    padding: "0.75rem",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+    fontSize: "1rem",
   },
   editorContainer: {
-    position: 'relative',
-    border: '1px solid #ddd',
-    borderRadius: '5px',
-    padding: '10px',
-    marginBottom: '20px',
+    position: "relative",
+    border: "1px solid #ddd",
+    borderRadius: "5px",
+    padding: "10px",
   },
   editor: {
-    height: '150px',
-    fontSize: '1rem',
+    height: "200px",
+    fontSize: "1rem",
   },
   inspireButton: {
-    position: 'absolute',
-    bottom: '10px',
-    right: '10px',
-    padding: '0.5rem 1rem',
-    background: 'transparent',
-    border: '1px solid #000',
-    borderRadius: '5px',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    color: '#000',
+    position: "absolute",
+    bottom: "10px",
+    right: "10px",
+    padding: "0.5rem 1rem",
+    background: "transparent",
+    border: "1px solid #000",
+    borderRadius: "5px",
+    fontWeight: "bold",
+    cursor: "pointer",
+    color: "#000",
   },
   submitButton: {
-    padding: '0.75rem 1.5rem',
-    backgroundColor: '#000',
-    color: '#fff',
-    fontSize: '1rem',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    fontWeight: 'bold',
+    padding: "0.75rem 1.5rem",
+    backgroundColor: "#000",
+    color: "#fff",
+    fontSize: "1rem",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontWeight: "bold",
   },
   errorMessage: {
-    marginTop: '1rem',
-    color: 'red',
-    fontSize: '1rem',
+    marginTop: "1rem",
+    color: "red",
+    fontSize: "1rem",
   },
   confirmation: {
-    position: 'fixed', // Cover the entire viewport
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundImage: 'url(background)', // Add the background image
-    backgroundSize: 'cover', // Make the image cover the entire screen
-    backgroundPosition: 'center', // Center the image
-    backgroundRepeat: 'no-repeat',
-    backgroundColor: 'rgba(0, 0, 0, 0.7)', // Semi-transparent overlay
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    color: 'white', // Text color
-    fontSize: '1.2rem',
-    padding: '2rem',
-    zIndex: 9999, // Ensure it stays on top
-  }
-  
-}
+    textAlign: "center",
+    marginTop: "2rem",
+    fontSize: "1.2rem",
+    color: "#000", // Text color for thank you message
+  },
+};
 
 
 export default ComposeMail;
