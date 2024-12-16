@@ -62,54 +62,66 @@ const ComposeMail = () => {
   const [message, setMessage] = useState("");
   const [scheduledTime, setScheduledTime] = useState(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!recipientEmail || !sendDate || !sendTime || !message.trim()) {
-      alert("Please fill in all fields!");
-      return;
+  // Ensure all fields are populated
+  if (!recipientEmail || !sendDate || !sendTime || !message.trim()) {
+    alert("Please fill in all fields!");
+    return;
+  }
+
+  // Format sendDate as YYYY-MM-DD (it already is, so no change here)
+  const formattedDate = sendDate;  // The input type="date" provides YYYY-MM-DD format
+
+  // Ensure sendTime is in HH:mm format (this should already be the case with input type="time")
+  const formattedTime = sendTime;  // Directly use the sendTime value
+
+  // Combine date and time into a single Date object
+  const combinedSendDateTime = new Date(`${formattedDate}T${formattedTime}`);
+
+  // Check if the scheduled time is in the future
+  if (combinedSendDateTime <= new Date()) {
+    alert("Scheduled time must be in the future!");
+    return;
+  }
+
+  // Debugging: Log the data being sent to the backend
+  console.log({
+    recipientEmail: recipientEmail,
+    subject: "Future Mail", // You can adjust the subject here
+    message: message,
+    sendDate: formattedDate,  // Send the formatted date
+    sendTime: formattedTime,  // Send the formatted time
+  });
+
+  try {
+    const response = await fetch("/schedule-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        recipientEmail: recipientEmail,
+        subject: "Future Mail",
+        message: message,
+        sendDate: formattedDate,
+        sendTime: formattedTime,
+      }),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      alert(`Email scheduled successfully to ${recipientEmail} at ${combinedSendDateTime.toLocaleString()}`);
+    } else {
+      alert(`Error: ${data.error}`);
     }
+  } catch (error) {
+    console.error("Error scheduling email:", error);
+    alert("Failed to schedule the email. Please try again.");
+  }
+};
 
-    const combinedSendDateTime = new Date(`${sendDate}T${sendTime}`);
-    if (combinedSendDateTime <= new Date()) {
-      alert("Scheduled time must be in the future!");
-      return;
-    }
-
-    try {
-      const response = await fetch("http://localhost:5000/composemail", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          to: recipientEmail,
-          subject: "Future Mail",
-          message: message,
-          sendAt: combinedSendDateTime,
-        }),
-      });
-
-      if (response.ok) {
-        alert(
-          `Email scheduled successfully to ${recipientEmail} at ${combinedSendDateTime.toLocaleString()}`
-        );
-        setScheduledTime(combinedSendDateTime);
-
-        // Clear form
-        setRecipientEmail("");
-        setSendDate("");
-        setSendTime("");
-        setMessage("");
-      } else {
-        const errorText = await response.text();
-        alert(`Error: ${errorText}`);
-      }
-    } catch (error) {
-      console.error("Failed to send email", error);
-      alert("Failed to schedule the email. Please try again.");
-    }
-  };
 
   const handleInspireMe = () => {
     setMessage(
@@ -263,27 +275,25 @@ const styles = {
     bottom: "10px",
     right: "10px",
     padding: "0.5rem 1rem",
-    background: "transparent",
-    border: "1px solid #000",
-    borderRadius: "5px",
-    fontWeight: "bold",
-    cursor: "pointer",
-    color: "#000",
-  },
-  submitButton: {
-    padding: "0.75rem 1.5rem",
-    backgroundColor: "#000",
-    color: "#fff",
-    fontSize: "1rem",
+    backgroundColor: "#28a745",
+    color: "white",
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
-    fontWeight: "bold",
+  },
+  submitButton: {
+    padding: "1rem",
+    backgroundColor: "#007bff",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontSize: "1rem",
   },
   confirmation: {
-    marginTop: "1rem",
-    fontSize: "1.1rem",
-    color: "#28a745",
+    marginTop: "1.5rem",
+    fontSize: "1.2rem",
+    color: "#333",
   },
 };
 
