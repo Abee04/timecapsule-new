@@ -62,7 +62,7 @@ const ComposeMail = () => {
   const [message, setMessage] = useState("");
   const [scheduledTime, setScheduledTime] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!recipientEmail || !sendDate || !sendTime || !message.trim()) {
@@ -76,16 +76,39 @@ const ComposeMail = () => {
       return;
     }
 
-    alert(
-      `Email scheduled to ${recipientEmail} at ${combinedSendDateTime.toLocaleString()}`
-    );
-    setScheduledTime(combinedSendDateTime);
+    try {
+      const response = await fetch("http://localhost:5000/composemail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: recipientEmail,
+          subject: "Future Mail",
+          message: message,
+          sendAt: combinedSendDateTime,
+        }),
+      });
 
-    // Clear form
-    setRecipientEmail("");
-    setSendDate("");
-    setSendTime("");
-    setMessage("");
+      if (response.ok) {
+        alert(
+          `Email scheduled successfully to ${recipientEmail} at ${combinedSendDateTime.toLocaleString()}`
+        );
+        setScheduledTime(combinedSendDateTime);
+
+        // Clear form
+        setRecipientEmail("");
+        setSendDate("");
+        setSendTime("");
+        setMessage("");
+      } else {
+        const errorText = await response.text();
+        alert(`Error: ${errorText}`);
+      }
+    } catch (error) {
+      console.error("Failed to send email", error);
+      alert("Failed to schedule the email. Please try again.");
+    }
   };
 
   const handleInspireMe = () => {
@@ -96,7 +119,7 @@ const ComposeMail = () => {
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.heading}>Your Future mail</h2>
+      <h2 style={styles.heading}>Your Future Mail</h2>
       <form onSubmit={handleSubmit} style={styles.form}>
         {/* Recipient Email */}
         <div style={styles.field}>
@@ -193,81 +216,74 @@ ComposeMail.formats = [
 // Styles
 const styles = {
   container: {
-    padding: '2rem',
-    maxWidth: '800px',
-    margin: 'auto',
-    textAlign: 'center',
-    fontFamily: 'Arial, sans-serif',
-  },
-  outlineBox: {
-    border: '2px solid #ccc',
-    borderRadius: '10px',
-    padding: '2rem',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    backgroundColor: '#fff',
+    padding: "2rem",
+    maxWidth: "800px",
+    margin: "auto",
+    textAlign: "center",
+    fontFamily: "Arial, sans-serif",
   },
   heading: {
-    fontSize: '2rem',
-    marginBottom: '1.5rem',
-    color: '#333',
+    fontSize: "2rem",
+    marginBottom: "1.5rem",
+    color: "#333",
   },
   form: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1rem',
-    textAlign: 'left',
+    display: "flex",
+    flexDirection: "column",
+    gap: "1rem",
+    textAlign: "left",
   },
   field: {
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
   },
   label: {
-    marginBottom: '0.5rem',
-    fontSize: '1rem',
-    fontWeight: 'bold',
+    marginBottom: "0.5rem",
+    fontSize: "1rem",
+    fontWeight: "bold",
   },
   input: {
-    padding: '0.75rem',
-    borderRadius: '5px',
-    border: '1px solid #ccc',
-    fontSize: '1rem',
+    padding: "0.75rem",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+    fontSize: "1rem",
   },
   editorContainer: {
-    position: 'relative',
-    border: '1px solid #ddd',
-    borderRadius: '5px',
-    padding: '10px',
+    position: "relative",
+    border: "1px solid #ddd",
+    borderRadius: "5px",
+    padding: "10px",
   },
   editor: {
-    height: '200px',
-    fontSize: '1rem',
+    height: "200px",
+    fontSize: "1rem",
   },
   inspireButton: {
-    position: 'absolute',
-    bottom: '10px',
-    right: '10px',
-    padding: '0.5rem 1rem',
-    background: 'transparent',
-    border: '1px solid #000',
-    borderRadius: '5px',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    color: '#000',
+    position: "absolute",
+    bottom: "10px",
+    right: "10px",
+    padding: "0.5rem 1rem",
+    background: "transparent",
+    border: "1px solid #000",
+    borderRadius: "5px",
+    fontWeight: "bold",
+    cursor: "pointer",
+    color: "#000",
   },
   submitButton: {
-    padding: '0.75rem 1.5rem',
-    backgroundColor: '#000',
-    color: '#fff',
-    fontSize: '1rem',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    fontWeight: 'bold',
+    padding: "0.75rem 1.5rem",
+    backgroundColor: "#000",
+    color: "#fff",
+    fontSize: "1rem",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontWeight: "bold",
   },
   confirmation: {
-    marginTop: '1rem',
-    fontSize: '1.1rem',
-    color: '#28a745',
+    marginTop: "1rem",
+    fontSize: "1.1rem",
+    color: "#28a745",
   },
 };
 
