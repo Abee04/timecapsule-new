@@ -13,6 +13,13 @@ Check out the live demo of the project here:
 
 You can explore all the features and functionalities of the app. Feel free to try it out!
 
+## 🎥Demo Video 
+[Click here to watch the video](https://drive.google.com/file/d/1MiSZxm5C-TYrViXvvbGSdudNQJ2MTbv3/view?usp=sharing)
+
+
+
+
+
 ## Acknowledgements
 
 - [Node.js](https://nodejs.org/) for the server-side framework used to handle backend operations and scheduling tasks.
@@ -20,13 +27,6 @@ You can explore all the features and functionalities of the app. Feel free to tr
 - [Nodemailer](https://nodemailer.com/) for enabling email sending functionality within the application.
 - [GitHub Actions](https://github.com/features/actions) for automating blog updates and other continuous integration tasks.
 - [Google Calendar API](https://developers.google.com/calendar) for integrating scheduling features into the app.
-
-
-
-## 🎥Demo Video 
-[Click here to watch the video](https://drive.google.com/file/d/1MiSZxm5C-TYrViXvvbGSdudNQJ2MTbv3/view?usp=sharing)
-
-
 
 
 
