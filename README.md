@@ -8,7 +8,7 @@ The Email Scheduler is a web application designed to allow users to compose, sch
 
 Check out the live demo of the project here:  
 
-[**Time Capsule - Live Demo**]([https://your-project-url.com](https://timecapsule-new-ista.vercel.app/))
+[ **Time Capsule Live Demo](https://timecapsule-new-ista.vercel.app/)
 
 
 You can explore all the features and functionalities of the app. Feel free to try it out!
