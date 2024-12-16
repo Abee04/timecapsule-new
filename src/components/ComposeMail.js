@@ -62,6 +62,7 @@ const ComposeMail = () => {
   const [message, setMessage] = useState("");
   const [scheduledTime, setScheduledTime] = useState(null);
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
@@ -115,6 +116,8 @@ const ComposeMail = () => {
     setMessage("");
   };
 =======
+=======
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
 
  const handleSubmit = async (e) => {
   e.preventDefault();
@@ -176,6 +179,9 @@ const ComposeMail = () => {
   }
 };
 
+<<<<<<< HEAD
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
+=======
 >>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
 
   const handleInspireMe = () => {
@@ -187,7 +193,11 @@ const ComposeMail = () => {
   return (
     <div style={styles.container}>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <h2 style={styles.heading}>Your Future Message</h2>
+=======
+      <h2 style={styles.heading}>Your Future Mail</h2>
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
 =======
       <h2 style={styles.heading}>Your Future Mail</h2>
 >>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
@@ -229,10 +239,15 @@ const ComposeMail = () => {
           />
         </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         {/* Message */}
         <div style={styles.editorContainer}>
           <label style={styles.label}>Message</label>
+=======
+        <label style={styles.label}>Message</label>
+        <div style={styles.editorContainer}>
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
 =======
         <label style={styles.label}>Message</label>
         <div style={styles.editorContainer}>
@@ -262,9 +277,12 @@ const ComposeMail = () => {
       </form>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       {/* Error Message */}
       {errorMessage && <div style={styles.errorMessage}>{errorMessage}</div>}
 
+=======
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
 =======
 >>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
       {/* Confirmation */}
@@ -300,6 +318,7 @@ ComposeMail.formats = [
 // Styles
 const styles = {
   container: {
+<<<<<<< HEAD
 <<<<<<< HEAD
     padding: '2rem',
     maxWidth: '800px',
@@ -375,6 +394,8 @@ const styles = {
     fontSize: '1.1rem',
     color: '#28a745',
 =======
+=======
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
     padding: "2rem",
     maxWidth: "800px",
     margin: "auto",
@@ -441,6 +462,9 @@ const styles = {
     marginTop: "1.5rem",
     fontSize: "1.2rem",
     color: "#333",
+<<<<<<< HEAD
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
+=======
 >>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
   },
 };

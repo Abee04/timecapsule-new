@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import axios from 'axios';
 import timeImage from '../assets/time1.jpg'; // Ensure this path is correct
 
@@ -18,6 +19,8 @@ const Write = () => {
 
     // Validate fields
 =======
+=======
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
 import timeImage from '../assets/time1.jpg'; // Correct path to time1.jpg
 
 const Write = () => {
@@ -32,12 +35,16 @@ const Write = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+<<<<<<< HEAD
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
+=======
 >>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
     if (!recipientEmail || !sendDate || !sendTime) {
       alert('Please fill out all fields!');
       return;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     const combinedSendDate = new Date(`${sendDate}T${sendTime}:00`);
 
@@ -67,6 +74,8 @@ const Write = () => {
       setIsLoading(false); // Stop loading indicator
     }
 =======
+=======
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
     const currentDate = new Date().toISOString().split('T')[0];
     if (sendDate < currentDate) {
       alert('Send date must be in the future.');
@@ -90,13 +99,20 @@ const Write = () => {
     setRecipientEmail('');
     setSendDate('');
     setSendTime('');
+<<<<<<< HEAD
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
+=======
 >>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
   };
 
   return (
     <div style={styles.pageContainer}>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <div style={{ ...styles.background, backgroundImage: `url(${timeImage})` }}></div>
+=======
+      <div style={{ ...styles.background }}></div>
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
 =======
       <div style={{ ...styles.background }}></div>
 >>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
@@ -105,9 +121,14 @@ const Write = () => {
         <form onSubmit={handleSubmit} style={styles.form}>
           <div style={styles.field}>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <label style={styles.label} htmlFor="recipient-email">Recipient's Email</label>
             <input
               id="recipient-email"
+=======
+            <label style={styles.label}>Recipient's Email</label>
+            <input
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
 =======
             <label style={styles.label}>Recipient's Email</label>
             <input
@@ -119,6 +140,7 @@ const Write = () => {
               required
               style={styles.input}
 <<<<<<< HEAD
+<<<<<<< HEAD
               aria-label="Recipient's Email"
             />
           </div>
@@ -127,17 +149,23 @@ const Write = () => {
             <input
               id="send-date"
 =======
+=======
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
             />
           </div>
           <div style={styles.field}>
             <label style={styles.label}>Send Date</label>
             <input
+<<<<<<< HEAD
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
+=======
 >>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
               type="date"
               value={sendDate}
               onChange={(e) => setSendDate(e.target.value)}
               required
               style={styles.input}
+<<<<<<< HEAD
 <<<<<<< HEAD
               aria-label="Send Date"
             />
@@ -147,17 +175,23 @@ const Write = () => {
             <input
               id="send-time"
 =======
+=======
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
             />
           </div>
           <div style={styles.field}>
             <label style={styles.label}>Send Time</label>
             <input
+<<<<<<< HEAD
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
+=======
 >>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
               type="time"
               value={sendTime}
               onChange={(e) => setSendTime(e.target.value)}
               required
               style={styles.input}
+<<<<<<< HEAD
 <<<<<<< HEAD
               aria-label="Send Time"
             />
@@ -170,6 +204,11 @@ const Write = () => {
           >
             {isLoading ? 'Scheduling...' : 'Schedule Letter'}
           </button>
+=======
+            />
+          </div>
+          <button type="submit" style={styles.button}>Schedule Letter</button>
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
 =======
             />
           </div>
@@ -201,17 +240,23 @@ const styles = {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
 <<<<<<< HEAD
+<<<<<<< HEAD
     filter: 'blur(10px)', // Make the background less distracting
     zIndex: -1,
   },
   formContainer: {
     backgroundColor: 'rgba(255, 255, 255, 0.85)', // Slight transparency for better contrast
 =======
+=======
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
     filter: 'blur(10px)',  // Adjust the blur to make the background darker and less distracting
     zIndex: -1,
   },
   formContainer: {
     backgroundColor: 'rgba(255, 255, 255, 0.85)', // Slight transparency to make the form stand out
+<<<<<<< HEAD
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
+=======
 >>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
     padding: '2rem',
     borderRadius: '8px',

@@ -2,6 +2,11 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import { getFirestore, collection, addDoc, getDocs } from 'firebase/firestore'; // Import Firestore functions
+
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
 =======
 import { getFirestore, collection, addDoc, getDocs } from 'firebase/firestore'; // Import Firestore functions
 
@@ -15,6 +20,7 @@ const firebaseConfig = {
     appId: "1:715356646583:web:4a15e954a42202edb37132",
     measurementId: "G-WDL6Z4VSHH"
 <<<<<<< HEAD
+<<<<<<< HEAD
   };
 
   const app = initializeApp(firebaseConfig);
@@ -24,6 +30,8 @@ const firebaseConfig = {
   export const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
   export const logout = () => signOut(auth);
 =======
+=======
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
 };
 
 const app = initializeApp(firebaseConfig);
@@ -58,4 +66,7 @@ export const fetchScheduledEmails = async () => {
   const emails = querySnapshot.docs.map(doc => doc.data());
   return emails;
 };
+<<<<<<< HEAD
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
+=======
 >>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da

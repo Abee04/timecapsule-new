@@ -5,8 +5,11 @@
 /.pnp
 .pnp.js
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Environment variables
 .env
+=======
+>>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
 =======
 >>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
 
