@@ -24,10 +24,12 @@ The Email Scheduler is a web application designed to allow users to compose, sch
 
 ## 💻Built with
 
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)  
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
+
 
 ## 🚀 Installation Steps
 
@@ -46,7 +48,6 @@ The Email Scheduler is a web application designed to allow users to compose, sch
 4. Run the app
     ```bash
     npm start
-    node server.js
 
 🌟 You are all set!
 
@@ -56,3 +57,23 @@ The Email Scheduler is a web application designed to allow users to compose, sch
 - **Scheduled Email Delivery**: Send emails at a specified date and time in the future.
 - **User-Friendly Dashboard**: Easily manage and track scheduled emails in a clean UI.
 - **Email Status Updates**: Track email status, such as **Sent** or **Scheduled**.
+## Code Formatter
+
+To set up Prettier as your code formatter in VSCode, follow these steps:
+
+### 1. Add `.vscode` Directory
+Create a `.vscode` directory in your project root.
+
+### 2. Create `settings.json`
+Inside the `.vscode` directory, create a `settings.json` file with the following content:
+
+```json
+{
+  "editor.formatOnSave": true,
+  "prettier.singleQuote": true,
+  "prettier.arrowParens": "avoid",
+  "prettier.jsxSingleQuote": true,
+  "prettier.trailingComma": "none",
+  "javascript.preferences.quoteStyle": "single"
+}
+
