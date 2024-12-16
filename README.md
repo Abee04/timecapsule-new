@@ -16,7 +16,7 @@ The Email Scheduler is a web application designed to allow users to compose, sch
 
 
 ## 🎥Demo Video 
-[Click here to watch the video](https://drive.google.com/file/d/1MiSZxm5C-TYrViXvvbGSdudNQJ2MTbv3/view?usp=sharing)
+[Click here to watch the video](https://drive.google.com/file/d/1q_3IZEAmjscXhP9BduNg2oAApw2DchJe/view?usp=drivesdk)
 
 
 
