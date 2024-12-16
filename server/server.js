@@ -14,6 +14,7 @@ const emailQueue = []; // Temporary array to store scheduled emails
 app.post("/schedule-email", (req, res) => {
   const { recipient, subject, body, sendDate, sendTime } = req.body;
 
+  // Validate inputs
   if (!recipient || !sendDate || !sendTime || !body) {
     return res.status(400).json({ message: "All fields are required" });
   }
@@ -21,10 +22,12 @@ app.post("/schedule-email", (req, res) => {
   // Combine the date and time into a full Date object
   const sendDateTime = new Date(`${sendDate}T${sendTime}:00`);
   
+  // Check if the scheduled time is in the future
   if (sendDateTime <= new Date()) {
     return res.status(400).json({ message: "Scheduled time must be in the future!" });
   }
 
+  // Add email to the queue for sending later
   emailQueue.push({ recipient, subject, body, sendDateTime });
   res.status(200).json({ message: "Email scheduled successfully" });
 });
@@ -40,12 +43,13 @@ const sendEmail = (email) => {
   });
 
   const mailOptions = {
-    from: "your-email@gmail.com",
+    from: "your-email@gmail.com", // Replace with your email
     to: email.recipient,
     subject: email.subject || "Scheduled Email",
-    text: email.body,
+    text: email.body, // Plain text body for the email
   };
 
+  // Send the email using the transporter
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error("Error sending email:", error);
@@ -58,11 +62,11 @@ const sendEmail = (email) => {
 // Cron job to send emails at the correct time
 cron.schedule("* * * * *", () => {
   const now = new Date();
-  
+
   // Loop through the queue and check for emails to send
   emailQueue.forEach((email, index) => {
     if (email.sendDateTime <= now) {
-      sendEmail(email);
+      sendEmail(email); // Send the email
       emailQueue.splice(index, 1); // Remove sent email from the queue
     }
   });

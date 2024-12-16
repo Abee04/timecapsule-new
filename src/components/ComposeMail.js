@@ -1,57 +1,9 @@
 import React, { useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
-// Custom Toolbar for Quill Editor
+// Custom Toolbar for Quill Editor (Removed, as we no longer use ReactQuill)
 const CustomToolbar = () => (
   <div id="toolbar">
-    {/* Headings */}
-    <span className="ql-formats">
-      <select className="ql-header" defaultValue="">
-        <option value="">Normal</option>
-        <option value="1">Heading 1</option>
-        <option value="2">Heading 2</option>
-        <option value="3">Heading 3</option>
-      </select>
-    </span>
-    {/* Font Families */}
-    <span className="ql-formats">
-      <select className="ql-font" defaultValue="">
-        <option value="sans-serif">Sans Serif</option>
-        <option value="serif">Serif</option>
-        <option value="monospace">Monospace</option>
-      </select>
-    </span>
-    {/* Formatting */}
-    <span className="ql-formats">
-      <button className="ql-bold" title="Bold"></button>
-      <button className="ql-italic" title="Italic"></button>
-      <button className="ql-underline" title="Underline"></button>
-    </span>
-    {/* Lists */}
-    <span className="ql-formats">
-      <button className="ql-list" value="ordered" title="Ordered List"></button>
-      <button className="ql-list" value="bullet" title="Bullet List"></button>
-    </span>
-    {/* Alignment */}
-    <span className="ql-formats">
-      <select className="ql-align" defaultValue="">
-        <option value=""></option>
-        <option value="center">Center</option>
-        <option value="right">Right</option>
-        <option value="justify">Justify</option>
-      </select>
-    </span>
-    {/* Color */}
-    <span className="ql-formats">
-      <select className="ql-color" title="Text Color"></select>
-      <select className="ql-background" title="Background Color"></select>
-    </span>
-    {/* Link & Image */}
-    <span className="ql-formats">
-      <button className="ql-link" title="Add Link"></button>
-      <button className="ql-image" title="Add Image"></button>
-    </span>
+    {/* This part can be removed, as it is no longer needed */}
   </div>
 );
 
@@ -116,7 +68,7 @@ const ComposeMail = () => {
 
   const handleInspireMe = () => {
     setMessage(
-      "<p><strong>Dear Future Me,</strong></p><p>Remember, you are capable of achieving great things!</p>"
+      "Dear Future Me, Remember, you are capable of achieving great things!"
     );
   };
 
@@ -161,17 +113,15 @@ const ComposeMail = () => {
           />
         </div>
 
-        {/* Message */}
-        <div style={styles.editorContainer}>
+        {/* Message (Plain Text) */}
+        <div style={styles.field}>
           <label style={styles.label}>Message</label>
-          <CustomToolbar />
-          <ReactQuill
+          <textarea
             value={message}
-            onChange={setMessage}
-            modules={ComposeMail.modules}
-            formats={ComposeMail.formats}
+            onChange={(e) => setMessage(e.target.value)}
             placeholder="Write your message here..."
-            style={styles.editor}
+            style={styles.input}
+            required
           />
           <button
             type="button"
@@ -201,25 +151,6 @@ const ComposeMail = () => {
     </div>
   );
 };
-
-// Quill Modules & Formats
-ComposeMail.modules = {
-  toolbar: { container: "#toolbar" },
-};
-
-ComposeMail.formats = [
-  "header",
-  "font",
-  "bold",
-  "italic",
-  "underline",
-  "list",
-  "align",
-  "color",
-  "background",
-  "link",
-  "image",
-];
 
 // Styles
 const styles = {
@@ -256,20 +187,7 @@ const styles = {
     border: '1px solid #ccc',
     fontSize: '1rem',
   },
-  editorContainer: {
-    position: 'relative',
-    border: '1px solid #ddd',
-    borderRadius: '5px',
-    padding: '10px',
-  },
-  editor: {
-    height: '200px',
-    fontSize: '1rem',
-  },
   inspireButton: {
-    position: 'absolute',
-    bottom: '10px',
-    right: '10px',
     padding: '0.5rem 1rem',
     background: 'transparent',
     border: '1px solid #000',
