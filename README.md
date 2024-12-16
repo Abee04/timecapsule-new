@@ -4,9 +4,17 @@
 The Email Scheduler is a web application designed to allow users to compose, schedule, and send emails at a specified future date and time. Built with a React.js frontend and a Node.js backend, this application streamlines email management and scheduling, making it ideal for personal or professional use.
 
 
+## 🌐 Live Demo
+
+Check out the live demo of the project here:  
+
+[**Time Capsule - Live Demo**](https://your-project-url.com)
+
+
+You can explore all the features and functionalities of the app. Feel free to try it out!
+
 ## Acknowledgements
 
-- [OpenAI GPT](https://openai.com/) for providing the AI-powered chatbot that helps generate professional email content.
 - [Node.js](https://nodejs.org/) for the server-side framework used to handle backend operations and scheduling tasks.
 - [React.js](https://reactjs.org/) for creating the user-friendly front-end dashboard for email management and scheduling.
 - [Nodemailer](https://nodemailer.com/) for enabling email sending functionality within the application.
@@ -16,7 +24,7 @@ The Email Scheduler is a web application designed to allow users to compose, sch
 
 
 ## 🎥Demo Video 
-[Click here to watch the video](https://drive.google.com/file/d/1q_3IZEAmjscXhP9BduNg2oAApw2DchJe/view?usp=drivesdk)
+[Click here to watch the video](https://drive.google.com/file/d/1MiSZxm5C-TYrViXvvbGSdudNQJ2MTbv3/view?usp=sharing)
 
 
 
