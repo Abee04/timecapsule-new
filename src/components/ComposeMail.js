@@ -3,24 +3,15 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import backgroundImage from "../assets/story.jpeg"; // Import the image
 
-// Custom Toolbar for Quill Editor
-const CustomToolbar = () => (
-  <div id="toolbar">
-    <span className="ql-formats">
-      <button className="ql-image" title="Add Image"></button>
-    </span>
-  </div>
-);
-
 const ComposeMail = () => {
   const [recipientEmail, setRecipientEmail] = useState("");
   const [sendDate, setSendDate] = useState("");
   const [sendTime, setSendTime] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(""); // Tracks the Quill editor's value
   const [image, setImage] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
-  const [isEmailScheduled, setIsEmailScheduled] = useState(false); // Track whether the email is scheduled
-  const [scheduledTime, setScheduledTime] = useState(""); // Store scheduled time
+  const [isEmailScheduled, setIsEmailScheduled] = useState(false);
+  const [scheduledTime, setScheduledTime] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +21,6 @@ const ComposeMail = () => {
       return;
     }
 
-    // Combine date and time into a Date object
     const combinedSendDateTime = new Date(`${sendDate}T${sendTime}:00`);
 
     if (combinedSendDateTime <= new Date()) {
@@ -57,9 +47,9 @@ const ComposeMail = () => {
 
       const result = await response.json();
       if (response.ok) {
-        setErrorMessage(""); // Clear any previous error messages
-        setScheduledTime(combinedSendDateTime.toLocaleString()); // Set the scheduled time
-        setIsEmailScheduled(true); // Show confirmation message
+        setErrorMessage("");
+        setScheduledTime(combinedSendDateTime.toLocaleString());
+        setIsEmailScheduled(true);
       } else {
         setErrorMessage(result.message || "Error scheduling email.");
       }
@@ -69,23 +59,26 @@ const ComposeMail = () => {
   };
 
   const handleInspireMe = () => {
-    setMessage(
-      "<p><strong>Dear Future Me,</strong></p><p>Remember, you are capable of achieving great things!</p>"
-    );
+    // Valid HTML for React Quill
+    const inspirationalMessage = `
+      <p><strong>Dear Future Me,</strong></p>
+      <p>Remember, the journey you are on is worth it.</p>
+      <p>Stay strong, stay positive, and always believe in yourself!</p>
+    `;
+    setMessage(inspirationalMessage); // Update Quill editor with the message
   };
 
   return (
     <div
       style={{
         ...styles.pageContainer,
-        backgroundImage: `url(${backgroundImage})`, // Set background image for entire page
+        backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
       <div style={styles.container}>
         {isEmailScheduled ? (
-          // If the email is successfully scheduled, show a confirmation message
           <div style={styles.confirmation}>
             <h2>Your email has been scheduled!</h2>
             <p>
@@ -95,7 +88,6 @@ const ComposeMail = () => {
             <p>Thank you for using our service!</p>
           </div>
         ) : (
-          // If email is not yet scheduled, show the form
           <form onSubmit={handleSubmit} style={styles.form}>
             <h2 style={styles.heading}>Your Future Message</h2>
 
@@ -133,15 +125,18 @@ const ComposeMail = () => {
               />
             </div>
 
-            <div style={styles.editorContainer}>
-              <label style={styles.label}>Message</label>
-              <CustomToolbar />
+            <label style={styles.label}>Message</label>
+            <div style={styles.messageContainer}>
               <ReactQuill
-                value={message}
-                onChange={setMessage}
+                value={message} // Bind message state to Quill editor
+                onChange={setMessage} // Update state on content change
                 placeholder="Write your message here..."
                 style={styles.editor}
               />
+            </div>
+
+            {/* Inspire Me Button */}
+            <div style={styles.inspireButtonContainer}>
               <button
                 type="button"
                 onClick={handleInspireMe}
@@ -176,30 +171,30 @@ const ComposeMail = () => {
 
 const styles = {
   pageContainer: {
-    minHeight: "100vh", // Make sure the background covers the whole page
+    minHeight: "100vh",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
   },
   container: {
-    backgroundColor: "rgba(255, 255, 255, 0.85)", // Semi-transparent white background for form and confirmation
-    padding: "1.5rem", // Reduced padding
-    borderRadius: "8px", // Slightly round the corners of the container
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Add a subtle shadow
-    maxWidth: "600px", // Reduced max-width for the form box
+    backgroundColor: "rgba(255, 255, 255, 0.85)",
+    padding: "1.5rem",
+    borderRadius: "8px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    maxWidth: "600px",
     width: "100%",
   },
   heading: {
-    fontSize: "1.8rem", // Slightly smaller heading size
-    marginBottom: "1rem", // Reduced margin
+    fontSize: "1.8rem",
+    marginBottom: "1rem",
     color: "#333",
+    textAlign: "center",
   },
   form: {
     display: "flex",
     flexDirection: "column",
     gap: "1rem",
-    textAlign: "left",
   },
   field: {
     display: "flex",
@@ -216,27 +211,33 @@ const styles = {
     border: "1px solid #ccc",
     fontSize: "1rem",
   },
-  editorContainer: {
-    position: "relative",
-    border: "1px solid #ddd",
+  messageContainer: {
+    backgroundColor: "#fff",
+    padding: "1rem",
     borderRadius: "5px",
-    padding: "10px",
+    border: "1px solid #ccc",
+    display: "flex",
+    flexDirection: "column",
+    gap: "0.5rem",
   },
   editor: {
     height: "200px",
     fontSize: "1rem",
+    backgroundColor: "#fff",
+  },
+  inspireButtonContainer: {
+    display: "flex",
+    justifyContent: "flex-end",
+    marginTop: "1rem", // Add space between editor and the button
   },
   inspireButton: {
-    position: "absolute",
-    bottom: "10px",
-    right: "10px",
     padding: "0.5rem 1rem",
-    background: "transparent",
-    border: "1px solid #000",
+    backgroundColor: "#000",
+    color: "#fff",
+    border: "none",
     borderRadius: "5px",
     fontWeight: "bold",
     cursor: "pointer",
-    color: "#000",
   },
   submitButton: {
     padding: "0.75rem 1.5rem",
@@ -257,9 +258,8 @@ const styles = {
     textAlign: "center",
     marginTop: "2rem",
     fontSize: "1.2rem",
-    color: "#000", // Text color for thank you message
+    color: "#000",
   },
 };
-
 
 export default ComposeMail;
