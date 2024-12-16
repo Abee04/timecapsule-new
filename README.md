@@ -1,70 +1,57 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Time Capsule
 
-## Available Scripts
+The Email Scheduler is a web application designed to allow users to compose, schedule, and send emails at a specified future date and time. Built with a React.js frontend and a Node.js backend, this application streamlines email management and scheduling, making it ideal for personal or professional use.
 
-In the project directory, you can run:
 
-### `npm start`
+## Acknowledgements
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [OpenAI GPT](https://openai.com/) for providing the AI-powered chatbot that helps generate professional email content.
+- [Node.js](https://nodejs.org/) for the server-side framework used to handle backend operations and scheduling tasks.
+- [React.js](https://reactjs.org/) for creating the user-friendly front-end dashboard for email management and scheduling.
+- [Nodemailer](https://nodemailer.com/) for enabling email sending functionality within the application.
+- [GitHub Actions](https://github.com/features/actions) for automating blog updates and other continuous integration tasks.
+- [Google Calendar API](https://developers.google.com/calendar) for integrating scheduling features into the app.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🎥Demo Video 
+[Click here to watch the video](https://drive.google.com/file/d/1MiSZxm5C-TYrViXvvbGSdudNQJ2MTbv3/view?usp=sharing)
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## 💻Built with
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)  
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🚀 Installation Steps
 
-## Learn More
+1. Clone the repository
+   ```bash
+   git clone https://github.com/username/project-name.git
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. Change the working directory
+    ```bash
+    cd project-name
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Install dependencies
+    ```bash
+    npm install
 
-### Code Splitting
+4. Run the app
+    ```bash
+    npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+🌟 You are all set!
 
-### Analyzing the Bundle Size
+## Features 💡
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **AI Chatbot Integration**: Generate personalized email content using an AI chatbot.
+- **Scheduled Email Delivery**: Send emails at a specified date and time in the future.
+- **User-Friendly Dashboard**: Easily manage and track scheduled emails in a clean UI.
+- **Email Status Updates**: Track email status, such as **Sent** or **Scheduled**.
