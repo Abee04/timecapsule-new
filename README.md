@@ -1,70 +1,87 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Time Capsule
 
-## Available Scripts
+The Email Scheduler is a web application designed to allow users to compose, schedule, and send emails at a specified future date and time. Built with a React.js frontend and a Node.js backend, this application streamlines email management and scheduling, making it ideal for personal or professional use.
 
-In the project directory, you can run:
 
-### `npm start`
+## 🌐 Live Demo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Check out the live demo of the project here:  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+[**Time Capsule - Live Demo**](https://your-project-url.com)
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+You can explore all the features and functionalities of the app. Feel free to try it out!
 
-### `npm run build`
+## 🎥Demo Video 
+[Click here to watch the video](https://drive.google.com/file/d/1MiSZxm5C-TYrViXvvbGSdudNQJ2MTbv3/view?usp=sharing)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Acknowledgements
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- [Node.js](https://nodejs.org/) for the server-side framework used to handle backend operations and scheduling tasks.
+- [React.js](https://reactjs.org/) for creating the user-friendly front-end dashboard for email management and scheduling.
+- [Nodemailer](https://nodemailer.com/) for enabling email sending functionality within the application.
+- [GitHub Actions](https://github.com/features/actions) for automating blog updates and other continuous integration tasks.
+- [Google Calendar API](https://developers.google.com/calendar) for integrating scheduling features into the app.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## 💻Built with
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 
-### Code Splitting
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+## 🚀 Installation Steps
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. Clone the repository
+   ```bash
+   git clone https://github.com/username/project-name.git
 
-### Making a Progressive Web App
+2. Change the working directory
+    ```bash
+    cd project-name
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+3. Install dependencies
+    ```bash
+    npm install
 
-### Advanced Configuration
+4. Run the app
+    ```bash
+    npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+🌟 You are all set!
 
-### Deployment
+## Features 💡
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- **AI Chatbot Integration**: Generate personalized email content using an AI chatbot.
+- **Scheduled Email Delivery**: Send emails at a specified date and time in the future.
+- **User-Friendly Dashboard**: Easily manage and track scheduled emails in a clean UI.
+- **Email Status Updates**: Track email status, such as **Sent** or **Scheduled**.
+## Code Formatter
 
-### `npm run build` fails to minify
+To set up Prettier as your code formatter in VSCode, follow these steps:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 1. Add `.vscode` Directory
+Create a `.vscode` directory in your project root.
+
+### 2. Create `settings.json`
+Inside the `.vscode` directory, create a `settings.json` file with the following content:
+
+```json
+{
+  "editor.formatOnSave": true,
+  "prettier.singleQuote": true,
+  "prettier.arrowParens": "avoid",
+  "prettier.jsxSingleQuote": true,
+  "prettier.trailingComma": "none",
+  "javascript.preferences.quoteStyle": "single"
+}
+
