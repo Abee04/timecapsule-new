@@ -46,6 +46,7 @@ The Email Scheduler is a web application designed to allow users to compose, sch
 4. Run the app
     ```bash
     npm start
+    node server.js
 
 🌟 You are all set!
 
