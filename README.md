@@ -31,6 +31,8 @@ You can explore all the features and functionalities of the app. Feel free to tr
 - [Node.js](https://nodejs.org/) for the server-side framework used to handle backend operations and scheduling tasks.
 - [React.js](https://reactjs.org/) for creating the user-friendly front-end dashboard for email management and scheduling.
 - [Nodemailer](https://nodemailer.com/) for enabling email sending functionality within the application.
+- [Firebase](https://firebase.google.com/) for authentication, leveraging Google OAuth for login functionality.
+- [Vercel](https://vercel.com/) for hosting the application and ensuring seamless deployment.
 - [GitHub Actions](https://github.com/features/actions) for automating blog updates and other continuous integration tasks.
 - [Google Calendar API](https://developers.google.com/calendar) for integrating scheduling features into the app.
 
