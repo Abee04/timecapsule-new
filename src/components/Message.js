@@ -51,23 +51,10 @@ const CustomToolbar = () => (
       </select>
     </span>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-     {/* Colors */}
-     <span className="ql-formats">
-      <button className="ql-color" title="Text Color"></button>
-      <button className="ql-background" title="Text Background Color"></button>
-=======
-=======
->>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
     {/* Text Color & Background Color */}
     <span className="ql-formats">
       <select className="ql-color" title="Text Color"></select>
       <select className="ql-background" title="Background Color"></select>
-<<<<<<< HEAD
->>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
-=======
->>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
     </span>
 
     {/* Quotes */}
@@ -147,11 +134,6 @@ Message.modules = {
   },
 };
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
 
 Message.formats = [
   "header",
@@ -171,10 +153,6 @@ Message.formats = [
   "image",
 ];
 
-<<<<<<< HEAD
->>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
-=======
->>>>>>> 0c0b7a6e71e41b5afafb55da79e59bf4fcc4b5da
 // Styles
 const styles = {
   container: {
