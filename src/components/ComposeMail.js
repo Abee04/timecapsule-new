@@ -61,67 +61,58 @@ const ComposeMail = () => {
   const [sendTime, setSendTime] = useState("");
   const [message, setMessage] = useState("");
   const [scheduledTime, setScheduledTime] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  // Ensure all fields are populated
-  if (!recipientEmail || !sendDate || !sendTime || !message.trim()) {
-    alert("Please fill in all fields!");
-    return;
-  }
-
-  // Format sendDate as YYYY-MM-DD (it already is, so no change here)
-  const formattedDate = sendDate;  // The input type="date" provides YYYY-MM-DD format
-
-  // Ensure sendTime is in HH:mm format (this should already be the case with input type="time")
-  const formattedTime = sendTime;  // Directly use the sendTime value
-
-  // Combine date and time into a single Date object
-  const combinedSendDateTime = new Date(`${formattedDate}T${formattedTime}`);
-
-  // Check if the scheduled time is in the future
-  if (combinedSendDateTime <= new Date()) {
-    alert("Scheduled time must be in the future!");
-    return;
-  }
-
-  // Debugging: Log the data being sent to the backend
-  console.log({
-    recipientEmail: recipientEmail,
-    subject: "Future Mail", // You can adjust the subject here
-    message: message,
-    sendDate: formattedDate,  // Send the formatted date
-    sendTime: formattedTime,  // Send the formatted time
-  });
-
-  try {
-    const response = await fetch("/schedule-email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        recipientEmail: recipientEmail,
-        subject: "Future Mail",
-        message: message,
-        sendDate: formattedDate,
-        sendTime: formattedTime,
-      }),
-    });
-
-    const data = await response.json();
-    if (response.ok) {
-      alert(`Email scheduled successfully to ${recipientEmail} at ${combinedSendDateTime.toLocaleString()}`);
-    } else {
-      alert(`Error: ${data.error}`);
+    if (!recipientEmail || !sendDate || !sendTime || !message.trim()) {
+      setErrorMessage("Please fill in all fields!");
+      return;
     }
-  } catch (error) {
-    console.error("Error scheduling email:", error);
-    alert("Failed to schedule the email. Please try again.");
-  }
-};
 
+    // Combine date and time into a Date object
+    const combinedSendDateTime = new Date(`${sendDate}T${sendTime}:00`);
+
+    if (combinedSendDateTime <= new Date()) {
+      setErrorMessage("Scheduled time must be in the future!");
+      return;
+    }
+
+    try {
+      // Make POST request to backend API
+      const response = await fetch("http://localhost:5000/schedule-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          recipient: recipientEmail,
+          subject: "Your Future Email",
+          body: message,
+          sendDate: sendDate,
+          sendTime: sendTime,
+        }),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        setScheduledTime(combinedSendDateTime);
+        setErrorMessage("");  // Clear any previous error messages
+        alert(`Email scheduled to ${recipientEmail} at ${combinedSendDateTime.toLocaleString()}`);
+      } else {
+        setErrorMessage(result.message || "Error scheduling email.");
+      }
+    } catch (error) {
+      setErrorMessage("An error occurred while scheduling the email.");
+    }
+
+    // Clear form after submission
+    setRecipientEmail("");
+    setSendDate("");
+    setSendTime("");
+    setMessage("");
+  };
 
   const handleInspireMe = () => {
     setMessage(
@@ -131,7 +122,7 @@ const ComposeMail = () => {
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.heading}>Your Future Mail</h2>
+      <h2 style={styles.heading}>Your Future Message</h2>
       <form onSubmit={handleSubmit} style={styles.form}>
         {/* Recipient Email */}
         <div style={styles.field}>
@@ -169,8 +160,10 @@ const ComposeMail = () => {
             required
           />
         </div>
-        <label style={styles.label}>Message</label>
+
+        {/* Message */}
         <div style={styles.editorContainer}>
+          <label style={styles.label}>Message</label>
           <CustomToolbar />
           <ReactQuill
             value={message}
@@ -194,6 +187,9 @@ const ComposeMail = () => {
           Schedule Email
         </button>
       </form>
+
+      {/* Error Message */}
+      {errorMessage && <div style={styles.errorMessage}>{errorMessage}</div>}
 
       {/* Confirmation */}
       {scheduledTime && (
@@ -228,72 +224,79 @@ ComposeMail.formats = [
 // Styles
 const styles = {
   container: {
-    padding: "2rem",
-    maxWidth: "800px",
-    margin: "auto",
-    textAlign: "center",
-    fontFamily: "Arial, sans-serif",
+    padding: '2rem',
+    maxWidth: '800px',
+    margin: 'auto',
+    textAlign: 'center',
+    fontFamily: 'Arial, sans-serif',
   },
   heading: {
-    fontSize: "2rem",
-    marginBottom: "1.5rem",
-    color: "#333",
+    fontSize: '2rem',
+    marginBottom: '1.5rem',
+    color: '#333',
   },
   form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "1rem",
-    textAlign: "left",
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem',
+    textAlign: 'left',
   },
   field: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
   },
   label: {
-    marginBottom: "0.5rem",
-    fontSize: "1rem",
-    fontWeight: "bold",
+    marginBottom: '0.5rem',
+    fontSize: '1rem',
+    fontWeight: 'bold',
   },
   input: {
-    padding: "0.75rem",
-    borderRadius: "5px",
-    border: "1px solid #ccc",
-    fontSize: "1rem",
+    padding: '0.75rem',
+    borderRadius: '5px',
+    border: '1px solid #ccc',
+    fontSize: '1rem',
   },
   editorContainer: {
-    position: "relative",
-    border: "1px solid #ddd",
-    borderRadius: "5px",
-    padding: "10px",
+    position: 'relative',
+    border: '1px solid #ddd',
+    borderRadius: '5px',
+    padding: '10px',
   },
   editor: {
-    height: "200px",
-    fontSize: "1rem",
+    height: '200px',
+    fontSize: '1rem',
   },
   inspireButton: {
-    position: "absolute",
-    bottom: "10px",
-    right: "10px",
-    padding: "0.5rem 1rem",
-    backgroundColor: "#28a745",
-    color: "white",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
+    position: 'absolute',
+    bottom: '10px',
+    right: '10px',
+    padding: '0.5rem 1rem',
+    background: 'transparent',
+    border: '1px solid #000',
+    borderRadius: '5px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    color: '#000',
   },
   submitButton: {
-    padding: "1rem",
-    backgroundColor: "#007bff",
-    color: "white",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-    fontSize: "1rem",
+    padding: '0.75rem 1.5rem',
+    backgroundColor: '#000',
+    color: '#fff',
+    fontSize: '1rem',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    fontWeight: 'bold',
+  },
+  errorMessage: {
+    marginTop: '1rem',
+    color: 'red',
+    fontSize: '1rem',
   },
   confirmation: {
-    marginTop: "1.5rem",
-    fontSize: "1.2rem",
-    color: "#333",
+    marginTop: '1rem',
+    fontSize: '1.1rem',
+    color: '#28a745',
   },
 };
 
