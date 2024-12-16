@@ -17,6 +17,10 @@ You can explore all the features and functionalities of the app. Feel free to tr
 [Click here to watch the video](https://drive.google.com/file/d/1MiSZxm5C-TYrViXvvbGSdudNQJ2MTbv3/view?usp=sharing)
 
 
+## 🖼️Screenshots
+
+   ![Time Capsule](screenshots/Screenshot 2024-12-16 200746.png.png)
+
 
 
 
