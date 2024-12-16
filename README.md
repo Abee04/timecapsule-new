@@ -19,7 +19,8 @@ You can explore all the features and functionalities of the app. Feel free to tr
 
 ## 🖼️Screenshots
 
-   ![Time Capsule](screenshots/Screenshot 2024-12-16 200746.png)
+   ![Time Capsule]("screenshots/Screenshot 2024-12-16 200746.png")
+
 
 
 
