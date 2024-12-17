@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { signInWithGoogle } from '../firebase';
 import { useNavigate } from 'react-router-dom';
-import timeImage from '../assets/story.jpg';
+import timeImage from '../assets/story.jpeg';
 
 const Login = () => {
   const [isSigningIn, setIsSigningIn] = useState(false); // Track signing-in status
