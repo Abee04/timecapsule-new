@@ -29,7 +29,7 @@ const Home = ({ user }) => {
               Let your words travel through time. Start your journey with ToTheFuture today! <br />
             </p>
             {/* Get Started Button (Before Login) */}
-            <Link to="/composemail">
+            <Link to="/login">
               <button style={styles.getStarted}>GET STARTED</button>
             </Link>
           </>

@@ -63,7 +63,7 @@ const ComposeMail = () => {
     const inspirationalMessage = `
       <p><strong>Dear Future Me,</strong></p>
       <p>Remember, the journey you are on is worth it.</p>
-      <p>Stay strong, stay positive, and always believe in yourself!</p>
+      <p>Stay strong, stay positive, and always believe in yourself!</p> 
     `;
     setMessage(inspirationalMessage); // Update Quill editor with the message
   };
