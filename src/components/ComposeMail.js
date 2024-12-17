@@ -40,7 +40,7 @@ const ComposeMail = () => {
     }
 
     try {
-      const response = await fetch("https://backend-1-ybri.onrender.com/schedule-email", {
+      const response = await fetch("https://backend-1-ybri.onrender.com", {
         method: "POST",
         body: formData,
       });
