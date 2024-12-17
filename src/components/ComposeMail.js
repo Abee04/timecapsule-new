@@ -1,67 +1,17 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-
-// Custom Toolbar for Quill Editor
-const CustomToolbar = () => (
-  <div id="toolbar">
-    {/* Headings */}
-    <span className="ql-formats">
-      <select className="ql-header" defaultValue="">
-        <option value="">Normal</option>
-        <option value="1">Heading 1</option>
-        <option value="2">Heading 2</option>
-        <option value="3">Heading 3</option>
-      </select>
-    </span>
-    {/* Font Families */}
-    <span className="ql-formats">
-      <select className="ql-font" defaultValue="">
-        <option value="sans-serif">Sans Serif</option>
-        <option value="serif">Serif</option>
-        <option value="monospace">Monospace</option>
-      </select>
-    </span>
-    {/* Formatting */}
-    <span className="ql-formats">
-      <button className="ql-bold" title="Bold"></button>
-      <button className="ql-italic" title="Italic"></button>
-      <button className="ql-underline" title="Underline"></button>
-    </span>
-    {/* Lists */}
-    <span className="ql-formats">
-      <button className="ql-list" value="ordered" title="Ordered List"></button>
-      <button className="ql-list" value="bullet" title="Bullet List"></button>
-    </span>
-    {/* Alignment */}
-    <span className="ql-formats">
-      <select className="ql-align" defaultValue="">
-        <option value=""></option>
-        <option value="center">Center</option>
-        <option value="right">Right</option>
-        <option value="justify">Justify</option>
-      </select>
-    </span>
-    {/* Color */}
-    <span className="ql-formats">
-      <select className="ql-color" title="Text Color"></select>
-      <select className="ql-background" title="Background Color"></select>
-    </span>
-    {/* Link & Image */}
-    <span className="ql-formats">
-      <button className="ql-link" title="Add Link"></button>
-      <button className="ql-image" title="Add Image"></button>
-    </span>
-  </div>
-);
+import backgroundImage from "../assets/story.jpeg"; // Import the image
 
 const ComposeMail = () => {
   const [recipientEmail, setRecipientEmail] = useState("");
   const [sendDate, setSendDate] = useState("");
   const [sendTime, setSendTime] = useState("");
-  const [message, setMessage] = useState("");
-  const [scheduledTime, setScheduledTime] = useState(null);
+  const [message, setMessage] = useState(""); // Tracks the Quill editor's value
+  const [image, setImage] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isEmailScheduled, setIsEmailScheduled] = useState(false);
+  const [scheduledTime, setScheduledTime] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,7 +21,6 @@ const ComposeMail = () => {
       return;
     }
 
-    // Combine date and time into a Date object
     const combinedSendDateTime = new Date(`${sendDate}T${sendTime}:00`);
 
     if (combinedSendDateTime <= new Date()) {
@@ -79,224 +28,237 @@ const ComposeMail = () => {
       return;
     }
 
+    const formData = new FormData();
+    formData.append("recipient", recipientEmail);
+    formData.append("subject", "Your Future Email");
+    formData.append("body", message);
+    formData.append("sendDate", sendDate);
+    formData.append("sendTime", sendTime);
+
+    if (image) {
+      formData.append("image", image);
+    }
+
     try {
-      // Make POST request to backend API
-      const response = await fetch("https://backend-1-ybri.onrender.com/schedule-email", {
+      const response = await fetch("https://timecapsule-new.onrender.com/schedule-email", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          recipient: recipientEmail,
-          subject: "Your Future Email",
-          body: message,
-          sendDate: sendDate,
-          sendTime: sendTime,
-        }),
+        body: formData,
       });
 
       const result = await response.json();
       if (response.ok) {
-        setScheduledTime(combinedSendDateTime);
-        setErrorMessage("");  // Clear any previous error messages
-        alert(`Email scheduled to ${recipientEmail} at ${combinedSendDateTime.toLocaleString()}`);
+        setErrorMessage("");
+        setScheduledTime(combinedSendDateTime.toLocaleString());
+        setIsEmailScheduled(true);
       } else {
         setErrorMessage(result.message || "Error scheduling email.");
       }
     } catch (error) {
       setErrorMessage("An error occurred while scheduling the email.");
     }
-
-    // Clear form after submission
-    setRecipientEmail("");
-    setSendDate("");
-    setSendTime("");
-    setMessage("");
   };
 
   const handleInspireMe = () => {
-    setMessage(
-      "<p><strong>Dear Future Me,</strong></p><p>Remember, you are capable of achieving great things!</p>"
-    );
+    // Valid HTML for React Quill
+    const inspirationalMessage = `
+      <p><strong>Dear Future Me,</strong></p>
+      <p>Remember, the journey you are on is worth it.</p>
+      <p>Stay strong, stay positive, and always believe in yourself!</p> 
+    `;
+    setMessage(inspirationalMessage); // Update Quill editor with the message
   };
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.heading}>Your Future Message</h2>
-      <form onSubmit={handleSubmit} style={styles.form}>
-        {/* Recipient Email */}
-        <div style={styles.field}>
-          <label style={styles.label}>Recipient Email</label>
-          <input
-            type="email"
-            placeholder="Enter recipient's email"
-            value={recipientEmail}
-            onChange={(e) => setRecipientEmail(e.target.value)}
-            style={styles.input}
-            required
-          />
-        </div>
+    <div
+      style={{
+        ...styles.pageContainer,
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div style={styles.container}>
+        {isEmailScheduled ? (
+          <div style={styles.confirmation}>
+            <h2>Your email has been scheduled!</h2>
+            <p>
+              Your email will be sent to <strong>{recipientEmail}</strong> at{" "}
+              <strong>{scheduledTime}</strong>.
+            </p>
+            <p>Thank you for using our service!</p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} style={styles.form}>
+            <h2 style={styles.heading}>Your Future Message</h2>
 
-        {/* Date */}
-        <div style={styles.field}>
-          <label style={styles.label}>Send Date</label>
-          <input
-            type="date"
-            value={sendDate}
-            onChange={(e) => setSendDate(e.target.value)}
-            style={styles.input}
-            required
-          />
-        </div>
+            <div style={styles.field}>
+              <label style={styles.label}>Recipient Email</label>
+              <input
+                type="email"
+                placeholder="Enter recipient's email"
+                value={recipientEmail}
+                onChange={(e) => setRecipientEmail(e.target.value)}
+                style={styles.input}
+                required
+              />
+            </div>
 
-        {/* Time */}
-        <div style={styles.field}>
-          <label style={styles.label}>Send Time</label>
-          <input
-            type="time"
-            value={sendTime}
-            onChange={(e) => setSendTime(e.target.value)}
-            style={styles.input}
-            required
-          />
-        </div>
+            <div style={styles.field}>
+              <label style={styles.label}>Send Date</label>
+              <input
+                type="date"
+                value={sendDate}
+                onChange={(e) => setSendDate(e.target.value)}
+                style={styles.input}
+                required
+              />
+            </div>
 
-        {/* Message */}
-        <div style={styles.editorContainer}>
-          <label style={styles.label}>Message</label>
-          <CustomToolbar />
-          <ReactQuill
-            value={message}
-            onChange={setMessage}
-            modules={ComposeMail.modules}
-            formats={ComposeMail.formats}
-            placeholder="Write your message here..."
-            style={styles.editor}
-          />
-          <button
-            type="button"
-            onClick={handleInspireMe}
-            style={styles.inspireButton}
-          >
-            Inspire Me!
-          </button>
-        </div>
+            <div style={styles.field}>
+              <label style={styles.label}>Send Time</label>
+              <input
+                type="time"
+                value={sendTime}
+                onChange={(e) => setSendTime(e.target.value)}
+                style={styles.input}
+                required
+              />
+            </div>
 
-        {/* Submit */}
-        <button type="submit" style={styles.submitButton}>
-          Schedule Email
-        </button>
-      </form>
+            <label style={styles.label}>Message</label>
+            <div style={styles.messageContainer}>
+              <ReactQuill
+                value={message} // Bind message state to Quill editor
+                onChange={setMessage} // Update state on content change
+                placeholder="Write your message here..."
+                style={styles.editor}
+              />
+            </div>
 
-      {/* Error Message */}
-      {errorMessage && <div style={styles.errorMessage}>{errorMessage}</div>}
+            {/* Inspire Me Button */}
+            <div style={styles.inspireButtonContainer}>
+              <button
+                type="button"
+                onClick={handleInspireMe}
+                style={styles.inspireButton}
+              >
+                Inspire Me!
+              </button>
+            </div>
 
-      {/* Confirmation */}
-      {scheduledTime && (
-        <div style={styles.confirmation}>
-          Your email is scheduled for:{" "}
-          <strong>{scheduledTime.toLocaleString()}</strong>
-        </div>
-      )}
+            {/* Image Upload */}
+            <div style={styles.field}>
+              <label style={styles.label}>Upload Image</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImage(e.target.files[0])}
+                style={styles.input}
+              />
+            </div>
+
+            <button type="submit" style={styles.submitButton}>
+              Schedule Email
+            </button>
+
+            {errorMessage && <div style={styles.errorMessage}>{errorMessage}</div>}
+          </form>
+        )}
+      </div>
     </div>
   );
 };
 
-// Quill Modules & Formats
-ComposeMail.modules = {
-  toolbar: { container: "#toolbar" },
-};
-
-ComposeMail.formats = [
-  "header",
-  "font",
-  "bold",
-  "italic",
-  "underline",
-  "list",
-  "align",
-  "color",
-  "background",
-  "link",
-  "image",
-];
-
-// Styles
 const styles = {
+  pageContainer: {
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+  },
   container: {
-    padding: '2rem',
-    maxWidth: '800px',
-    margin: 'auto',
-    textAlign: 'center',
-    fontFamily: 'Arial, sans-serif',
+    backgroundColor: "rgba(255, 255, 255, 0.85)",
+    padding: "1.5rem",
+    borderRadius: "8px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    maxWidth: "600px",
+    width: "100%",
   },
   heading: {
-    fontSize: '2rem',
-    marginBottom: '1.5rem',
-    color: '#333',
+    fontSize: "1.8rem",
+    marginBottom: "1rem",
+    color: "#333",
+    textAlign: "center",
   },
   form: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1rem',
-    textAlign: 'left',
+    display: "flex",
+    flexDirection: "column",
+    gap: "1rem",
   },
   field: {
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
   },
   label: {
-    marginBottom: '0.5rem',
-    fontSize: '1rem',
-    fontWeight: 'bold',
+    marginBottom: "0.5rem",
+    fontSize: "1rem",
+    fontWeight: "bold",
   },
   input: {
-    padding: '0.75rem',
-    borderRadius: '5px',
-    border: '1px solid #ccc',
-    fontSize: '1rem',
+    padding: "0.75rem",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+    fontSize: "1rem",
   },
-  editorContainer: {
-    position: 'relative',
-    border: '1px solid #ddd',
-    borderRadius: '5px',
-    padding: '10px',
+  messageContainer: {
+    backgroundColor: "#fff",
+    padding: "1rem",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+    display: "flex",
+    flexDirection: "column",
+    gap: "0.5rem",
   },
   editor: {
-    height: '200px',
-    fontSize: '1rem',
+    height: "200px",
+    fontSize: "1rem",
+    backgroundColor: "#fff",
+  },
+  inspireButtonContainer: {
+    display: "flex",
+    justifyContent: "flex-end",
+    marginTop: "1rem", // Add space between editor and the button
   },
   inspireButton: {
-    position: 'absolute',
-    bottom: '10px',
-    right: '10px',
-    padding: '0.5rem 1rem',
-    background: 'transparent',
-    border: '1px solid #000',
-    borderRadius: '5px',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    color: '#000',
+    padding: "0.5rem 1rem",
+    backgroundColor: "#000",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    fontWeight: "bold",
+    cursor: "pointer",
   },
   submitButton: {
-    padding: '0.75rem 1.5rem',
-    backgroundColor: '#000',
-    color: '#fff',
-    fontSize: '1rem',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    marginTop: '1rem',
+    padding: "0.75rem 1.5rem",
+    backgroundColor: "#000",
+    color: "#fff",
+    fontSize: "1rem",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontWeight: "bold",
   },
   errorMessage: {
-    marginTop: '1rem',
-    color: 'red',
-    fontWeight: 'bold',
+    marginTop: "1rem",
+    color: "red",
+    fontSize: "1rem",
   },
   confirmation: {
-    marginTop: '1rem',
-    color: 'green',
-    fontWeight: 'bold',
+    textAlign: "center",
+    marginTop: "2rem",
+    fontSize: "1.2rem",
+    color: "#000",
   },
 };
 
