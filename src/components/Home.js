@@ -1,30 +1,45 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import backgroundImage from '../assets/time1.jpg'; // Path to your image
+import backgroundImage from '../assets/Story.jpg'; // Path to your image
 
 const Home = ({ user }) => {
   return (
     <div style={styles.home}>
       <div style={styles.overlay}>
-        <h1 style={styles.title}>Welcome to ToFuture</h1>
-        <p style={styles.description}>
-          Ready to time capsule your messages? <br />
-          Store them securely and send them into the future! <br />
-          Let your words travel through time. <br />
-          Start your journey with ToFuture today.
-        </p>
         {user ? (
-          <h2 style={styles.user}>Hello, {user.displayName}!</h2>
+          <>
+            {/* Personalized Welcome Message */}
+            <h2 style={styles.user}>Hello, {user.displayName}!</h2>
+            <h1 style={styles.title}>Welcome to ToTheFuture</h1>
+            <p style={styles.description}>
+              Ready to time capsule your messages? <br />
+              Let your words travel through time. Start your journey with ToTheFuture today! <br />
+            </p>
+            {/* Get Started Button (After Login) */}
+            <Link to="/composemail">
+              <button style={styles.getStarted}>GET STARTED</button>
+            </Link>
+          </>
         ) : (
-          <Link to="/login">
-            <button style={styles.getStarted}>GET STARTED</button>
-          </Link>
+          <>
+            {/* Default Content for Non-Logged In Users */}
+            <h1 style={styles.title}>Welcome to ToTheFuture</h1>
+            <p style={styles.description}>
+              Ready to time capsule your messages? <br />
+              Let your words travel through time. Start your journey with ToTheFuture today! <br />
+            </p>
+            {/* Get Started Button (Before Login) */}
+            <Link to="/login">
+              <button style={styles.getStarted}>GET STARTED</button>
+            </Link>
+          </>
         )}
       </div>
     </div>
   );
 };
 
+// Styles for Home Component
 const styles = {
   home: {
     display: 'flex',
@@ -73,6 +88,7 @@ const styles = {
     border: 'none',
     cursor: 'pointer',
     borderRadius: '5px',
+    fontWeight: 'bold',
   },
 };
 

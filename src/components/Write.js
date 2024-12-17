@@ -1,47 +1,53 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import timeImage from '../assets/time1.jpg'; // Correct path to time1.jpg
+import axios from 'axios';
+import timeImage from '../assets/time1.jpg'; // Ensure this path is correct
 
 const Write = () => {
   const location = useLocation();
-  const { message } = location.state || {}; // Get the message passed from Message.js
+  const { message } = location.state || {}; // Retrieve any message passed from another component
 
   const [recipientEmail, setRecipientEmail] = useState('');
   const [sendDate, setSendDate] = useState('');
-  const [sendTime, setSendTime] = useState(''); // New state for time
-  const [scheduledTime, setScheduledTime] = useState(null); // Store the combined send time
+  const [sendTime, setSendTime] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // Loading state for submission
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validate fields
     if (!recipientEmail || !sendDate || !sendTime) {
       alert('Please fill out all fields!');
       return;
     }
 
-    const currentDate = new Date().toISOString().split('T')[0];
-    if (sendDate < currentDate) {
-      alert('Send date must be in the future.');
-      return;
-    }
-
-    // Combine the date and time to get the full date-time string
     const combinedSendDate = new Date(`${sendDate}T${sendTime}:00`);
-    
+
     if (combinedSendDate <= new Date()) {
-      alert('Send time must be in the future.');
+      alert('Send date and time must be in the future.');
       return;
     }
 
-    // Here you could integrate with a service (like Firebase Cloud Functions) to schedule the email
-    // For now, we’ll just show the user that the email has been scheduled
-    alert(`Your letter has been scheduled to send at ${combinedSendDate.toLocaleString()}`);
+    setIsLoading(true); // Start loading indicator
 
-    setScheduledTime(combinedSendDate);
-    // Reset form fields
-    setRecipientEmail('');
-    setSendDate('');
-    setSendTime('');
+    try {
+      // Send data to the backend
+      const response = await axios.post('http://localhost:5000/schedule-email', {
+        recipient: recipientEmail,
+        message: message || 'Default message content', // Use default message if not provided
+        dateTime: combinedSendDate.toISOString(),
+      });
+
+      alert(response.data.message); // Show success message
+      setRecipientEmail('');
+      setSendDate('');
+      setSendTime('');
+    } catch (error) {
+      console.error('Error scheduling email:', error);
+      alert(`Failed to schedule email: ${error.response?.data?.error || error.message}`);
+    } finally {
+      setIsLoading(false); // Stop loading indicator
+    }
   };
 
   return (
@@ -51,37 +57,50 @@ const Write = () => {
         <h2 style={styles.heading}>Get Started</h2>
         <form onSubmit={handleSubmit} style={styles.form}>
           <div style={styles.field}>
-            <label style={styles.label}>Recipient's Email</label>
+            <label style={styles.label} htmlFor="recipient-email">Recipient's Email</label>
             <input
+              id="recipient-email"
               type="email"
               placeholder="Enter recipient's email"
               value={recipientEmail}
               onChange={(e) => setRecipientEmail(e.target.value)}
               required
               style={styles.input}
+              aria-label="Recipient's Email"
             />
           </div>
           <div style={styles.field}>
-            <label style={styles.label}>Send Date</label>
+            <label style={styles.label} htmlFor="send-date">Send Date</label>
             <input
+              id="send-date"
               type="date"
               value={sendDate}
               onChange={(e) => setSendDate(e.target.value)}
               required
               style={styles.input}
+              aria-label="Send Date"
             />
           </div>
           <div style={styles.field}>
-            <label style={styles.label}>Send Time</label>
+            <label style={styles.label} htmlFor="send-time">Send Time</label>
             <input
+              id="send-time"
               type="time"
               value={sendTime}
               onChange={(e) => setSendTime(e.target.value)}
               required
               style={styles.input}
+              aria-label="Send Time"
             />
           </div>
-          <button type="submit" style={styles.button}>Schedule Letter</button>
+          <button
+            type="submit"
+            style={{ ...styles.button, backgroundColor: isLoading ? '#ccc' : '#000' }}
+            aria-label="Schedule Letter"
+            disabled={isLoading} // Disable button when loading
+          >
+            {isLoading ? 'Scheduling...' : 'Schedule Letter'}
+          </button>
         </form>
       </div>
     </div>
@@ -107,11 +126,11 @@ const styles = {
     height: '100%',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    filter: 'blur(10px)',  // Adjust the blur to make the background darker and less distracting
+    filter: 'blur(10px)', // Make the background less distracting
     zIndex: -1,
   },
   formContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.85)', // Slight transparency to make the form stand out
+    backgroundColor: 'rgba(255, 255, 255, 0.85)', // Slight transparency for better contrast
     padding: '2rem',
     borderRadius: '8px',
     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
